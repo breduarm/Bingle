@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(./gradlew:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git branch:*)",
+      "Bash(git show:*)",
+      "Bash(xcodebuild -list:*)",
+      "Bash(xcrun simctl list:*)"
+    ],
+    "ask": [
+      "Edit(**/*.pbxproj)",
+      "Edit(**/*.xcconfig)",
+      "Edit(**/Info.plist)",
+      "Edit(gradle/libs.versions.toml)",
+      "Edit(.github/workflows/**)",
+      "Edit(.claude/settings.json)",
+      "Edit(docs/references/bingo-cards/**)",
+      "Bash(git push:*)",
+      "Bash(git commit:*)"
+    ],
+    "deny": [
+      "Read(**/local.properties)",
+      "Read(**/*.jks)",
+      "Read(**/*.keystore)",
+      "Read(**/*.p12)",
+      "Read(**/*.mobileprovision)",
+      "Read(**/Secrets.xcconfig)",
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(git reset --hard:*)",
+      "Bash(rm -rf:*)"
+    ]
+  }
+}
