@@ -17,3 +17,12 @@ captures
 !*.xcworkspace/contents.xcworkspacedata
 **/xcshareddata/WorkspaceSettings.xcsettings
 node_modules/
+
+# Claude Code: personal settings stay local; shared .claude/ config is committed
+.claude/settings.local.json
+
+# Secrets
+Secrets.xcconfig
+*.jks
+*.keystore
+*.p12

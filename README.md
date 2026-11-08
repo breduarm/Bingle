@@ -1,35 +1,52 @@
-This is a Kotlin Multiplatform project targeting Android, iOS.
+# Bingle
 
-* [/iosApp](./iosApp/iosApp) contains an iOS application. Even if you’re sharing your UI with Compose Multiplatform,
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+**Your real-life bingo cards, on your phone.** Bingle is an Android and iOS companion app for people who play US 75-ball bingo in halls.
 
-* [/sharedLogic](./sharedLogic/src) is for the code that will be shared between app targets in the project.
-  The most important subfolder is [commonMain](./sharedLogic/src/commonMain/kotlin). If preferred, you
-  can add code to the platform-specific folders here too.
+- 📸 **Import cards.** Take a photo of your paper cards, or upload a PDF, and Bingle reads them into virtual 5×5 cards.
+- 🗓️ **Organize by game.** Create a game with a date and a nickname, and attach that day's cards.
+- 🔢 **Play.** Type each called number. Bingle marks it on every card and tells you when you have a bingo.
+- 👤 **Account.** Sign up with email, Google, or Facebook.
 
-* [/sharedUI](./sharedUI/src) is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - [commonMain](./sharedUI/src/commonMain/kotlin) is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    the [iosMain](./sharedUI/src/iosMain/kotlin) folder would be the right place for such calls.
-    Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./sharedUI/src/jvmMain/kotlin)
-    folder is the appropriate location.
+> Status: early development. The MVP specs are in [docs/specs](docs/specs/README.md).
 
-### Running the apps
+## Tech
+- Kotlin Multiplatform shares the domain, data, and ViewModels.
+- The UI is native on each platform: Jetpack Compose on Android, SwiftUI on iOS. See [ADR-0001](docs/adr/0001-native-swiftui-shared-logic.md).
+- The module layout and data flow are in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
-Use the run configurations provided by the run widget in your IDE's toolbar. You can also use these commands and options:
+## Getting started
+**Requirements:**
+- JDK 17+
+- Android Studio (latest stable) with the Kotlin Multiplatform plugin
+- Xcode (latest stable) for iOS
 
-- Android app: `./gradlew :androidApp:assembleDebug`
-- iOS app: open the [/iosApp](./iosApp) directory in Xcode and run it from there.
+**Android**
+```bash
+./gradlew :androidApp:assembleDebug
+```
+You can also run the `androidApp` configuration from Android Studio.
 
-### Running tests
+**iOS:** open `iosApp/iosApp.xcodeproj` in Xcode and run it. The Kotlin framework is built automatically by a build phase.
 
-Use the run button in your IDE's editor gutter, or run tests using Gradle tasks:
+**Tests**
+```bash
+./gradlew :sharedLogic:testAndroidHostTest :sharedUI:testAndroidHostTest
+./gradlew :sharedLogic:iosSimulatorArm64Test
+```
 
-- Android tests: `./gradlew :sharedUI:testAndroidHostTest :sharedLogic:testAndroidHostTest`
-- iOS tests: `./gradlew :sharedLogic:iosSimulatorArm64Test`
+## Project layout
+| Path | What |
+|---|---|
+| `sharedLogic/` | Shared Kotlin logic. It also produces the iOS framework |
+| `sharedUI/` | Compose UI (Android) |
+| `androidApp/` | Android app entry point |
+| `iosApp/` | Xcode project and SwiftUI app |
+| `docs/` | Specs, ADRs, standards, workflow, and reference material |
+| `.claude/` | Configuration for the AI coding agent (Claude Code) |
 
----
+## How we work
+This project is built by humans and AI agents working together:
+- humans own the specs, decisions, and reviews;
+- agents implement against approved specs.
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+Before contributing, read [CONTRIBUTING.md](CONTRIBUTING.md). If you are an AI agent, start at [CLAUDE.md](CLAUDE.md).
